@@ -10,7 +10,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Objects;
 
-class Password {
+public class Password {
 
     static void verify(LoginClient client, String pass) {
         InetAddress inetAddress = ((InetSocketAddress) client.getIoSession().getRemoteAddress()).getAddress();
@@ -87,8 +87,12 @@ class Password {
         return null;
     }
 
-    private static boolean isValidPass(String pass, String passHash) {
-        String password = cryptPassword(Objects.requireNonNull(cryptPassword(pass, "MD5")), "SHA-512");
-        return password != null && password.equals(passHash);
+    public static String encrypt(String password)
+    {
+        return cryptPassword(Objects.requireNonNull(cryptPassword(password, "MD5")), "SHA-512");
+    }
+
+    private static boolean isValidPass(String password, String passHash) {
+        return encrypt(password).equals(passHash);
     }
 }
