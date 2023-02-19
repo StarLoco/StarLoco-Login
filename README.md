@@ -27,4 +27,4 @@ Feel free to open an issue or create a pull request.
 
 ## Community
 
-_Join us on Discord : https://discord.gg/k3Yk9DuhgY_
+![Discord Banner 2](https://discordapp.com/api/guilds/856945561421086730/widget.png?style=banner2)
