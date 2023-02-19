@@ -17,8 +17,8 @@ public class Logging {
 
     public void initialize() {
 
-        if (!new File("Logs").exists())
-            new File("Logs/").mkdir();
+        if (!new File("logs").exists())
+            new File("logs/").mkdir();
     }
 
     public void stop() {
@@ -63,10 +63,10 @@ public class Logging {
         public Log(String name, String date) throws IOException {
             this.name = name;
 
-            if (!new File("Logs/" + this.name).exists())
-                new File("Logs/" + this.name).mkdir();
+            if (!new File("logs/" + this.name).exists())
+                new File("logs/" + this.name).mkdir();
 
-            this.buffer = new BufferedWriter(new FileWriter("Logs/" + this.name
+            this.buffer = new BufferedWriter(new FileWriter("logs/" + this.name
                     + "/" + date, true));
             this.write("Starting logger..");
         }
