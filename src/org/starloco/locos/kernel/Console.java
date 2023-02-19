@@ -4,6 +4,7 @@ import ch.qos.logback.classic.Level;
 import ch.qos.logback.classic.Logger;
 import org.slf4j.LoggerFactory;
 import org.starloco.locos.login.LoginClient;
+import org.starloco.locos.login.packet.Password;
 import org.starloco.locos.tool.packetfilter.VPNAuthorization;
 
 import java.util.NoSuchElementException;
@@ -36,7 +37,7 @@ public class Console extends Thread {
             char space = ' ';
             String[] infos = line.split(String.valueOf(space));
 
-            if(infos.length > 1) {
+            if(infos.length > 0) {
                 switch (infos[0].toUpperCase()) {
                     case "VPN":
                         VPNAuthorization.getInstance().toggle();
@@ -53,7 +54,10 @@ public class Console extends Thread {
                             Config.loginServer.addMaintainAccount(infos[1]);
                         this.write(" > You've maintain the account : " + infos[1] + " !");
                         break;
-
+                    case "PASSWORD":
+                        String password = infos[1];
+                        this.write("Hashed password : " + Password.encrypt(password));
+                        break;
                     case "UPTIME":
                         this.write(EmulatorInfo.uptime());
                         break;
