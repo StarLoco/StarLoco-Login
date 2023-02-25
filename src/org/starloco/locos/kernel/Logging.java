@@ -1,11 +1,13 @@
 package org.starloco.locos.kernel;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 
 public class Logging {
     private static final Logging singleton = new Logging();
@@ -16,9 +18,23 @@ public class Logging {
     }
 
     public void initialize() {
-
         if (!new File("logs").exists())
             new File("logs/").mkdir();
+
+        try {
+            System.setOut(new PrintStream(System.out, true, "IBM850"));
+        } catch (UnsupportedEncodingException e) {
+            throw new RuntimeException(e);
+        }
+
+        if (!new File("logs/Error").exists())
+            new File("logs/Error").mkdir();
+
+        try {
+            System.setErr(new PrintStream(Files.newOutputStream(Paths.get("logs/Error/" + new SimpleDateFormat("dd-MM-yyyy - HH-mm-ss", Locale.FRANCE).format(new Date()) + ".log"))));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public void stop() {

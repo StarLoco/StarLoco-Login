@@ -8,13 +8,6 @@ import org.starloco.locos.exchange.ExchangeServer;
 import org.starloco.locos.login.LoginServer;
 import org.starloco.locos.object.Server;
 
-import java.io.File;
-import java.io.PrintStream;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -29,15 +22,6 @@ public class Main {
     }
 
     public static void main(String[] arg) {
-        try {
-            System.setOut(new PrintStream(System.out, true, "IBM850"));
-            new File("Logs").mkdir();
-            if (!new File("Logs/Error").exists()) new File("Logs/Error").mkdir();
-            System.setErr(new PrintStream(Files.newOutputStream(Paths.get("Logs/Error/" + new SimpleDateFormat("dd-MM-yyyy - HH-mm-ss", Locale.FRANCE).format(new Date()) + ".log"))));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
         start();
     }
 
