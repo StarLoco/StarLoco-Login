@@ -27,7 +27,7 @@ public class Database {
     }
 
     public void initializeConnection() {
-        logger.setLevel(Level.ALL);
+        logger.setLevel(Level.ERROR);
         logger.trace("Reading database config");
 
         HikariConfig config = new HikariConfig();
@@ -40,9 +40,7 @@ public class Database {
         config.addDataSourceProperty("user", Config.databaseUser);
         config.addDataSourceProperty("password", Config.databasePass);
 
-        System.out.println("est");
         dataSource = new HikariDataSource(config);
-        System.out.println("est");
         if (!testConnection(dataSource)) {
             logger.error("Please check your username and password and database connection");
             Main.exit();

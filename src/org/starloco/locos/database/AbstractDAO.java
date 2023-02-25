@@ -15,7 +15,7 @@ public abstract class AbstractDAO<T> implements DAO<T> {
 
     protected AbstractDAO(HikariDataSource dataSource) {
         this.dataSource = dataSource;
-        this.logger.setLevel(Level.DEBUG);
+        this.logger.setLevel(Level.ERROR);
     }
 
     protected void execute(String query) {
