@@ -23,6 +23,7 @@ public class Config {
     //network
     public static String exchangeIp, version;
     public static int loginPort, exchangePort;
+    public static String exchangeKey;
 
     public static void verify(String name) {
         if(new File(name).exists()) load(name);
@@ -57,6 +58,7 @@ public class Config {
         try {
             Config.exchangeIp = properties.getProperty(Params.EXCHANGE_IP.toString()); i = 6;
             Config.exchangePort = Integer.parseInt(properties.getProperty(Params.EXCHANGE_PORT.toString()));i = 9;
+            Config.exchangeKey = properties.getProperty(Params.EXCHANGE_KEY.toString()); i = 6;
             Config.loginPort = Integer.parseInt(properties.getProperty(Params.PORT.toString())); i++;
             Config.version = properties.getProperty(Params.VERSION.toString()); i = 12;
             Config.databaseHost = properties.getProperty(Params.LOGIN_DB_HOST.toString()); i++;
@@ -98,12 +100,13 @@ public class Config {
         StringBuilder sb = new StringBuilder();
 
         sb
-            .append("# StarLoco - Login. By Locos.")
+            .append("# StarLoco - Login. By Locos.\n")
             .append("#Auto-Generated Config File\n")
             .append("\n")
             .append("#System\n")
             .append(Params.EXCHANGE_IP).append(" 127.0.0.1\n")
             .append(Params.EXCHANGE_PORT).append(" 666\n")
+            .append(Params.EXCHANGE_KEY).append(" ChangeMeYn2kjibddFAWtnPJ2AFlL8WXmohJMCvigQggaEypa5E\n")
             .append("\n")
             .append("#Login server\n")
             .append(Params.PORT).append(" 450\n")
@@ -144,6 +147,7 @@ public class Config {
     private enum Params {
         EXCHANGE_PORT("system.server.exchange.port"),
         EXCHANGE_IP("system.server.exchange.ip"),
+        EXCHANGE_KEY("system.server.exchange.key"),
         PORT("system.server.login.port"),
         VERSION("system.server.login.version"),
         LOGIN_DB_HOST("database.login.host"),
