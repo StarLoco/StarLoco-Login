@@ -1,7 +1,14 @@
 package org.starloco.locos.login.packet;
 
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jws;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.security.Keys;
+import org.starloco.locos.kernel.Config;
 import org.starloco.locos.kernel.Console;
 import org.starloco.locos.login.LoginClient;
+
+import java.util.Base64;
 
 public class PacketHandler {
 
@@ -13,6 +20,11 @@ public class PacketHandler {
                 break;
 
             case WAIT_ACCOUNT: // a modifier
+                if (packet.equals("#S")) {
+                    // 1.39 character switch
+                    client.setStatus(LoginClient.Status.WAIT_GAMESERVER_JWS);
+                    return;
+                }
                 if (packet.length() < 3) {
                     Console.instance.write("[" + client.getIoSession().getId() + "] Sending of packet '" + packet + "' to verify the account. The client going to be kicked.");
                     client.send("AlEf");
@@ -23,6 +35,26 @@ public class PacketHandler {
                 Console.instance.write("[" + client.getIoSession().getId() + "] Verification of account '" + packet + "'.");
                 AccountName.verify(client, packet);
                 break;
+            case WAIT_GAMESERVER_JWS:
+                try{
+                    Claims result = Jwts.parserBuilder()
+                            .requireIssuer("StarLocoGameServer")
+                            .setAllowedClockSkewSeconds(5)
+                            .setSigningKey(Keys.hmacShaKeyFor(Base64.getDecoder().decode(Config.exchangeKey)))
+                            .build().parseClaimsJws(packet).getBody();
+
+                    String accID = result.getSubject();
+                    String ip = result.get("ip", String.class);
+
+                    AccountName.verifyJWS(client, accID, ip);
+                    return;
+                }catch(Exception e) {
+                    e.printStackTrace();
+                    client.send("AlEf");
+                    client.kick();
+                    return;
+                }
+
 
             case WAIT_PASSWORD: // ok
                 if (packet.length() < 3) {
