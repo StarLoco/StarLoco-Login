@@ -43,13 +43,13 @@ public class PacketHandler {
                             .setSigningKey(Keys.hmacShaKeyFor(Base64.getDecoder().decode(Config.exchangeKey)))
                             .build().parseClaimsJws(packet).getBody();
 
+
                     String accID = result.getSubject();
                     String ip = result.get("ip", String.class);
 
                     AccountName.verifyJWS(client, accID, ip);
                     return;
                 }catch(Exception e) {
-                    e.printStackTrace();
                     client.send("AlEf");
                     client.kick();
                     return;
