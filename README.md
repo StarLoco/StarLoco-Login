@@ -8,18 +8,13 @@ The most advanced public 1.29.1 to 1.38.10 dofus emulator written in Java 8.
 - Community
 
 ## Requirements
-
 To be able to run this project, you'll need to be sure your computer has :
-- Java - JRE 8
-- MySQL - Version 8
+- Java - JRE/JDK 8
+- MariaDB - Version 10 / MySQL - Version 8
 
 ## Usage
-
-There's "bin" folder where you'll find all the stuff you need to make it run.
-
 Create a database named "starloco_login", then execute "login.sql".
-
-Finally, run "start.bat" under bin folder.
+Finally, run "start.bat".
 
 ## Contribute
 
