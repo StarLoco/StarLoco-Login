@@ -27,6 +27,8 @@ public class Database {
     }
 
     public void initializeConnection() {
+        ((Logger) LoggerFactory.getLogger("com.zaxxer.hikari.HikariConfig")).setLevel(Level.ERROR);
+        ((Logger) LoggerFactory.getLogger("com.zaxxer.hikari.pool.HikariPool")).setLevel(Level.ERROR);
         logger.setLevel(Level.ERROR);
         logger.trace("Reading database config");
 
