@@ -428,8 +428,8 @@ CREATE TABLE `world_base_houses` (
                                      PRIMARY KEY (`id`,`map_id`,`cell_id`,`mapid`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3;
 
-LOCK TABLES `world_base_areas` WRITE;
-/*!40000 ALTER TABLE `world_base_areas` DISABLE KEYS */;
+LOCK TABLES `world_base_houses` WRITE;
+/*!40000 ALTER TABLE `world_base_houses` DISABLE KEYS */;
 -- ----------------------------
 -- Records of world_base_houses
 -- ----------------------------
