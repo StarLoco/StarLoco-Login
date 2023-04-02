@@ -1,7 +1,6 @@
 package org.starloco.locos.login.packet;
 
 import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 import org.starloco.locos.kernel.Config;
@@ -42,7 +41,6 @@ public class PacketHandler {
                             .setAllowedClockSkewSeconds(5)
                             .setSigningKey(Keys.hmacShaKeyFor(Base64.getDecoder().decode(Config.exchangeKey)))
                             .build().parseClaimsJws(packet).getBody();
-
 
                     String accID = result.getSubject();
                     String ip = result.get("ip", String.class);
