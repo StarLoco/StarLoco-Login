@@ -110,7 +110,7 @@ public class Config {
             .append("\n")
             .append("#Login server\n")
             .append(Params.PORT).append(" 450\n")
-            .append(Params.VERSION).append(" 1.37.10\n")
+            .append(Params.VERSION).append(" 1.39.9e\n")
             .append("\n")
             .append(Params.LOGIN_DB_HOST).append(" 127.0.0.1\n")
             .append(Params.LOGIN_DB_PORT).append(" 3306\n")
