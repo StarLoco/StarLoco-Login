@@ -1,0 +1,2 @@
+UPDATE `world_base_sub_areas` SET `id` = 473, `area` = 46, `name` = 'Le Laboratoire Caché', `nearest_sub_areas` = '' WHERE `id` = 473 AND `area` = 46 AND `name` = 'Le Laboratoire Caché' AND `nearest_sub_areas` = '' LIMIT 1;
+UPDATE `world_base_sub_areas` SET `id` = 537, `area` = 0, `name` = 'Donjon des Forgerons', `nearest_sub_areas` = '' WHERE `id` = 537 AND `area` = 0 AND `name` = 'Donjon des Forgerons' AND `nearest_sub_areas` = '' LIMIT 1;
