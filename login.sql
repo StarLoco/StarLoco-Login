@@ -11,7 +11,7 @@
  Target Server Version : 100322 (10.3.22-MariaDB)
  File Encoding         : 65001
 
- Date: 30/04/2023 08:50:34
+ Date: 09/05/2023 00:11:16
 */
 
 SET NAMES utf8mb4;
@@ -12206,7 +12206,7 @@ INSERT INTO `world_base_sub_areas` VALUES (469, 46, 'le village de la Canop', '4
 INSERT INTO `world_base_sub_areas` VALUES (470, 46, 'le goulet du Rasboul', '');
 INSERT INTO `world_base_sub_areas` VALUES (471, 46, 'Tourbière nauséabonde', '457');
 INSERT INTO `world_base_sub_areas` VALUES (472, 46, 'le feuillage de L\'arbre Hakam', '455,464,469');
-INSERT INTO `world_base_sub_areas` VALUES (473, 46, 'Le laboratoire caché', '');
+INSERT INTO `world_base_sub_areas` VALUES (473, 46, 'Le Laboratoire Caché', '');
 INSERT INTO `world_base_sub_areas` VALUES (474, 46, 'la cale de l\'arche d\'Otomaï', '');
 INSERT INTO `world_base_sub_areas` VALUES (476, 19, 'le pont de Grobe', '105,107,152');
 INSERT INTO `world_base_sub_areas` VALUES (477, 47, 'le prisme Zothier', '468');
