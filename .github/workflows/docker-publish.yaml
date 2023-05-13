@@ -26,7 +26,7 @@ jobs:
 
       - name: Build JAR
         run: |
-          javac -cp ./libs/*.jar -d . ./src/**/*.java
+          javac -cp "./libs/*" -d . ./src/**/*.java
           jar cmf ./src/META-INF/MANIFEST.MF ./game.jar -C . ./src
 
       - name: Upload JAR artifact
