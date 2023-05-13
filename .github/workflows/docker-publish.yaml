@@ -28,13 +28,13 @@ jobs:
         run: |
           find ./src -type f -name "*.java" > sources.txt
           javac -cp "./libs/*" -d . "@sources.txt"
-          jar cmf ./src/META-INF/MANIFEST.MF ./game.jar -C . ./src
+          jar cmf ./src/META-INF/MANIFEST.MF ./login.jar -C . ./src
 
       - name: Upload JAR artifact
         uses: actions/upload-artifact@v2
         with:
-          name: game-jar
-          path: ./game.jar
+          name: login-jar
+          path: ./login.jar
 
       - name: Set output
         id: vars
