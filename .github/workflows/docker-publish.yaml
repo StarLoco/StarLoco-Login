@@ -23,7 +23,7 @@ jobs:
           context: .
           push: true
           tags: |
-            ${{ secrets.DOCKER_USERNAME }}/login:${{ steps.vars.outputs.tag }}
+            ${{ secrets.DOCKER_USERNAME }}/login:${{ github.ref_slug }}
         env:
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
