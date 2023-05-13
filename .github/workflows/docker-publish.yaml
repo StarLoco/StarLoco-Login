@@ -20,9 +20,7 @@ jobs:
 
       - name: Set output
         id: vars
-        run: echo "tag=${GITHUB_REF#refs/*/}"
-        env:
-          tag: ${{ steps.vars.outputs.tag }}
+        run: echo "tag=${GITHUB_REF#refs/*/}" >> $GITHUB_OUTPUT
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v1
