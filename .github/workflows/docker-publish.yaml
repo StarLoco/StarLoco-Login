@@ -18,11 +18,21 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v2
 
+      - name: Set up JDK
+        uses: actions/setup-java@v2
+        with:
+          java-version: '11'  # Adjust this version if needed
+
       - name: Build JAR
         run: |
-          mkdir build
-          javac -d build -cp "libs/*" src/**/*.java
-          jar -cfm login.jar src/META-INF/MANIFEST.MF -C build/ .
+          javac -cp ./libs/*.jar -d . ./src/**/*.java
+          jar cmf ./src/META-INF/MANIFEST.MF ./game.jar -C . ./src
+
+      - name: Upload JAR artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: game-jar
+          path: ./game.jar
 
       - name: Set output
         id: vars
