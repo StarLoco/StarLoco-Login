@@ -3,7 +3,7 @@ FROM alpine:latest
 RUN apk add --no-cache openjdk11-jre
 
 COPY login.jar /app/login.jar
-COPY login.config.properties /app/login.config.properties
+COPY docker.config.properties /app/login.config.properties
 
 WORKDIR /app
 

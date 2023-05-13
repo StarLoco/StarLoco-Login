@@ -18,6 +18,12 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v2
 
+      - name: Build JAR
+        run: |
+          mkdir build
+          javac -d build -cp "libs/*" src/**/*.java
+          jar -cfm login.jar src/META-INF/MANIFEST.MF -C build/ .
+
       - name: Set output
         id: vars
         run: echo "tag=${GITHUB_REF#refs/*/}" >> $GITHUB_OUTPUT
