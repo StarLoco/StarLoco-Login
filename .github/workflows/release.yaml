@@ -30,7 +30,6 @@ jobs:
       - name: Build with Gradle
         uses: gradle/gradle-build-action@v2.4.2
         with:
-          gradle-version: 8.1.1
           arguments: jar
 
       - name: Upload JAR artifact
@@ -38,18 +37,6 @@ jobs:
         with:
           name: login-jar
           path: ./build/libs/login.jar
-
-      - name: Build JAR
-        run: |
-          find ./src -type f -name "*.java" > sources.txt
-          javac -cp "./libs/*" -d . "@sources.txt"
-          jar cmf ./src/META-INF/MANIFEST.MF ./login.jar -C . ./src
-
-      - name: Upload JAR artifact
-        uses: actions/upload-artifact@v2
-        with:
-          name: login-jar
-          path: ./login.jar
 
       # Upload to Docker
       - name: Log in to Docker Hub
@@ -65,14 +52,12 @@ jobs:
           images: starloco/login
 
       - name: Build and push Docker image
-        uses: docker/build-push-action@v2
+        uses: docker/build-push-action@v4
         with:
           context: .
           file: ./Dockerfile
           push: true
-          tags: |
-            starloco/login:latest
-            starloco/login:${{ github.ref_name }}
+          tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
 
       - name: Docker Hub Description (README.md)
@@ -86,12 +71,10 @@ jobs:
       # Create release
       - name: Create Release
         id: create_release
-        uses: actions/create-release@latest
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        uses: marvinpinto/action-automatic-releases@latest
         with:
-          tag_name: ${{ github.ref }}
-          release_name: Release ${{ github.ref }}
-          body: Release ${{ github.ref }}
-          draft: true
+          repo_token: "${{ secrets.GITHUB_TOKEN }}"
           prerelease: false
+          title: Release ${{ github.ref }}
+          files: |
+            ./build/libs/login.jar
