@@ -72,7 +72,7 @@ jobs:
           push: true
           tags: |
             starloco/login:latest
-            starloco/login:${{ steps.vars.outputs.tag }}
+            starloco/login:${{ github.ref_name }}
           labels: ${{ steps.meta.outputs.labels }}
 
       - name: Docker Hub Description (README.md)
