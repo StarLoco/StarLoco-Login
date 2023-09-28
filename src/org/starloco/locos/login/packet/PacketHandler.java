@@ -14,8 +14,12 @@ public class PacketHandler {
     public static void parser(LoginClient client, String packet) {
         switch (client.getStatus()) {
             case WAIT_VERSION: // ok
-                Console.instance.write("[" + client.getIoSession().getId() + "] Checking for version '" + packet + "'.");
-                Version.verify(client, packet);
+                String[] parts = packet.split("\\|");
+                String version = parts[0];
+                String lang = parts[1];
+
+                Console.instance.write("[" + client.getIoSession().getId() + "] Checking for version '" + version + "'.");
+                Version.verify(client, version);
                 break;
 
             case WAIT_ACCOUNT: // a modifier
