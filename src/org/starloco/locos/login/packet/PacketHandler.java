@@ -16,7 +16,8 @@ public class PacketHandler {
             case WAIT_VERSION: // ok
                 String[] parts = packet.split("\\|");
                 String version = parts[0];
-                String lang = parts[1];
+                String lang = "";
+                if(parts.length > 1) lang = parts[1];
 
                 Console.instance.write("[" + client.getIoSession().getId() + "] Checking for version '" + version + "'.");
                 Version.verify(client, version);
