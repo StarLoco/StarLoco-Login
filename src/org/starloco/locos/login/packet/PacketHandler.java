@@ -42,10 +42,10 @@ public class PacketHandler {
             case WAIT_GAMESERVER_JWS:
                 try{
                     Claims result = Jwts.parserBuilder()
-                            .requireIssuer("StarLocoGameServer")
-                            .setAllowedClockSkewSeconds(5)
-                            .setSigningKey(Keys.hmacShaKeyFor(Base64.getDecoder().decode(Config.exchangeKey)))
-                            .build().parseClaimsJws(packet).getBody();
+                        .requireIssuer("StarLocoGameServer")
+                        .setAllowedClockSkewSeconds(5)
+                        .setSigningKey(Keys.hmacShaKeyFor(Base64.getDecoder().decode(Config.exchangeKey)))
+                        .build().parseClaimsJws(packet).getBody();
 
                     String accID = result.getSubject();
                     String ip = result.get("ip", String.class);
@@ -99,7 +99,7 @@ public class PacketHandler {
                         break;
 
                     case "Ap":
-                    case"Ai":
+                    case "Ai":
                         break;
 
                     default:
@@ -107,7 +107,6 @@ public class PacketHandler {
                         break;
                 }
                 break;
-
         }
     }
 }
