@@ -19,8 +19,11 @@ class Version {
 
     public boolean greaterThan(Version other) {
         if(this.major < other.major) return false;
+        if(this.major > other.major) return true;
         if(this.minor < other.minor) return false;
-        if(this.revision > other.revision) return false;
+        if(this.minor > other.minor) return true;
+        if(this.revision < other.revision) return false;
+        if(this.revision > other.revision) return true;
         return true;
     }
 
