@@ -14,8 +14,13 @@ public class PacketHandler {
     public static void parser(LoginClient client, String packet) {
         switch (client.getStatus()) {
             case WAIT_VERSION: // ok
-                Console.instance.write("[" + client.getIoSession().getId() + "] Checking for version '" + packet + "'.");
-                Version.verify(client, packet);
+                String[] parts = packet.split("\\|");
+                String version = parts[0];
+                String lang = "";
+                if(parts.length > 1) lang = parts[1];
+
+                Console.instance.write("[" + client.getIoSession().getId() + "] Checking for version '" + version + "'.");
+                Version.verify(client, version);
                 break;
 
             case WAIT_ACCOUNT: // a modifier
@@ -37,10 +42,10 @@ public class PacketHandler {
             case WAIT_GAMESERVER_JWS:
                 try{
                     Claims result = Jwts.parserBuilder()
-                            .requireIssuer("StarLocoGameServer")
-                            .setAllowedClockSkewSeconds(5)
-                            .setSigningKey(Keys.hmacShaKeyFor(Base64.getDecoder().decode(Config.exchangeKey)))
-                            .build().parseClaimsJws(packet).getBody();
+                        .requireIssuer("StarLocoGameServer")
+                        .setAllowedClockSkewSeconds(5)
+                        .setSigningKey(Keys.hmacShaKeyFor(Base64.getDecoder().decode(Config.exchangeKey)))
+                        .build().parseClaimsJws(packet).getBody();
 
                     String accID = result.getSubject();
                     String ip = result.get("ip", String.class);
@@ -94,7 +99,7 @@ public class PacketHandler {
                         break;
 
                     case "Ap":
-                    case"Ai":
+                    case "Ai":
                         break;
 
                     default:
@@ -102,7 +107,6 @@ public class PacketHandler {
                         break;
                 }
                 break;
-
         }
     }
 }
