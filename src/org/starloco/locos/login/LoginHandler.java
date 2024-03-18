@@ -7,6 +7,7 @@ import org.starloco.locos.kernel.Config;
 import org.starloco.locos.kernel.Console;
 import org.starloco.locos.tool.packetfilter.PacketFilter;
 
+import java.io.PrintStream;
 import java.util.Random;
 
 public class LoginHandler implements IoHandler {
@@ -29,6 +30,11 @@ public class LoginHandler implements IoHandler {
     @Override
     public void exceptionCaught(IoSession arg0, Throwable arg1) {
         Console.instance.write("session " + arg0.getId() + " exception : " + arg1.getMessage());
+        arg1.printStackTrace(new PrintStream(System.err){
+            public void println(Object o) {
+                Console.instance.write(o.toString());
+            }
+        });
     }
 
     @Override
@@ -60,7 +66,9 @@ public class LoginHandler implements IoHandler {
 
         if (arg0.getAttribute("client") instanceof LoginClient) {
             LoginClient client = (LoginClient) arg0.getAttribute("client");
-            client.getAccount().setState(0);
+            if(client.getAccount() != null) {
+                client.getAccount().setState(0);
+            }
         }
     }
 

@@ -58,7 +58,6 @@ public class PacketHandler {
                     return;
                 }
 
-
             case WAIT_PASSWORD: // ok
                 if (packet.length() < 3) {
                     Console.instance.write("[" + client.getIoSession().getId() + "] Sending of packet '" + packet + "' to verify the password. The client going to be kicked.");
