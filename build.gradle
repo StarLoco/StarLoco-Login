@@ -1,6 +1,9 @@
 apply plugin: 'java'
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
+}
 
 group 'org.starloco.locos'
 // Get version from git tag, fallback to git commit hash
@@ -22,10 +25,25 @@ sourceSets {
             srcDirs 'src'
         }
     }
+    test {
+        java {
+            srcDirs 'test'
+        }
+    }
+}
+
+repositories {
+    mavenCentral()
 }
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.10.2'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+test {
+    useJUnitPlatform()
 }
 
 jar {
@@ -41,5 +59,3 @@ jar {
         configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
     }
 }
-sourceCompatibility = JavaVersion.VERSION_1_8
-targetCompatibility = JavaVersion.VERSION_1_8

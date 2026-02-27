@@ -12,6 +12,8 @@ import java.util.Objects;
 
 public class Password {
 
+    private static final char[] HEX_CHARS = "0123456789abcdef".toCharArray();
+
     static void verify(LoginClient client, String pass) {
         InetAddress inetAddress = ((InetSocketAddress) client.getIoSession().getRemoteAddress()).getAddress();
         String IP = inetAddress.getHostAddress();
@@ -66,25 +68,19 @@ public class Password {
     }
 
     private static String cryptPassword(String message, String type) {
-        MessageDigest md;
         try {
-            md = MessageDigest.getInstance(type);
-            md.update(message.getBytes());
-            byte[] mb = md.digest();
-            StringBuilder out = new StringBuilder();
-            for (byte temp : mb) {
-                StringBuilder s = new StringBuilder(Integer.toHexString(temp));
-                while (s.length() < 2) {
-                    s.insert(0, "0");
-                }
-                s = new StringBuilder(s.substring(s.length() - 2));
-                out.append(s);
+            byte[] mb = MessageDigest.getInstance(type).digest(message.getBytes());
+            char[] hex = new char[mb.length * 2];
+            for (int i = 0; i < mb.length; i++) {
+                int v = mb[i] & 0xFF;
+                hex[i * 2]     = HEX_CHARS[v >>> 4];
+                hex[i * 2 + 1] = HEX_CHARS[v & 0x0F];
             }
-            return out.toString();
+            return new String(hex);
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
+            return null;
         }
-        return null;
     }
 
     public static String encrypt(String password)
