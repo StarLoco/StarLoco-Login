@@ -1,0 +1,26 @@
+# StarLoco-Login ignores
+
+# Build script
+build.sh
+
+# Gradle
+.gradle/
+build/
+
+# OpenCode local-only files
+opencode.json
+CURRENT_TASK.md
+AGENTS.md
+
+# AI memory (session-only)
+docs/ai/
+
+# Project docs (local-only, do not commit)
+docs/
+
+# Build dependencies (downloaded locally)
+gradle-8.11.1/
+jdk-11.0.24+8/
+gradle.zip
+openjdk11.tar.gz
+install-dependencies.sh

@@ -38,7 +38,9 @@ public class LoginClient {
     }
 
     public void kick() {
-        Config.loginServer.clients.remove(this.getAccount().getName());
+        if (this.account != null) {
+            Config.loginServer.clients.remove(this.getAccount().getName());
+        }
         this.ioSession.close(true);
     }
 
@@ -75,6 +77,6 @@ public class LoginClient {
     }
 
     public enum Status {
-        WAIT_VERSION, WAIT_PASSWORD, WAIT_GAMESERVER_JWS, WAIT_ACCOUNT, WAIT_NICKNAME, SERVER
+        WAIT_VERSION, WAIT_PASSWORD, WAIT_GAMESERVER_JWS, WAIT_ACCOUNT, WAIT_NICKNAME, WAIT_ZAAP_AUTH, SERVER
     }
 }

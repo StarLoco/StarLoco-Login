@@ -80,7 +80,16 @@ public abstract class AbstractDAO<T> implements DAO<T> {
         }
     }
 
-    void close(PreparedStatement statement) {
+    protected Connection getConnection() {
+        try {
+            return dataSource.getConnection();
+        } catch (SQLException e) {
+            logger.error("Can't get connection", e);
+            return null;
+        }
+    }
+
+    protected void close(PreparedStatement statement) {
         if (statement == null)
             return;
         try {
@@ -91,7 +100,7 @@ public abstract class AbstractDAO<T> implements DAO<T> {
         }
     }
 
-    void close(Connection connection) {
+    protected void close(Connection connection) {
         if (connection == null)
             return;
         try {
@@ -102,7 +111,7 @@ public abstract class AbstractDAO<T> implements DAO<T> {
         }
     }
 
-    void close(Statement statement) {
+    protected void close(Statement statement) {
         if (statement == null)
             return;
         try {

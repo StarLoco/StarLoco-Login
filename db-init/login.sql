@@ -10237,6 +10237,7 @@ CREATE TABLE `world_accounts`  (
   `facebook` text CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
   `google` text CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
   `votes` int(11) NOT NULL DEFAULT 0,
+  `zaap_token` char(36) NULL DEFAULT NULL,
   PRIMARY KEY (`guid`) USING BTREE,
   UNIQUE INDEX `account`(`account`) USING BTREE
 ) ENGINE = MyISAM AUTO_INCREMENT = 4 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;

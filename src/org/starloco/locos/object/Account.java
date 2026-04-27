@@ -11,6 +11,7 @@ public class Account {
     private final int UUID;
     private final String name, pass, question;
     private String pseudo;
+    private String zaapToken;
     private byte state;
     private LoginClient client;
     private final long subscribe;
@@ -20,7 +21,7 @@ public class Account {
     private final Map<Integer, Player> players = new HashMap<>();
 
     public Account(int UUID, String name, String pass, String pseudo,
-                   String question, byte state, long subscribe, byte banned, long bannedTime) {
+                   String question, byte state, long subscribe, byte banned, long bannedTime, String zaapToken) {
         this.UUID = UUID;
         this.name = name;
         this.pass = pass;
@@ -29,6 +30,7 @@ public class Account {
         this.state = state;
         this.subscribe = subscribe;
         this.banned = (banned != 0);
+        this.zaapToken = zaapToken;
         if(this.banned) this.bannedTime = bannedTime;
     }
 
@@ -102,6 +104,14 @@ public class Account {
 
     public void setBannedTime(long bannedTime) {
         this.bannedTime = bannedTime;
+    }
+
+    public String getZaapToken() {
+        return zaapToken;
+    }
+
+    public void setZaapToken(String zaapToken) {
+        this.zaapToken = zaapToken;
     }
 
     public void addPlayer(Player player) {

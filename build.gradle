@@ -3,13 +3,11 @@ sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
 group 'org.starloco.locos'
-// Get version from git tag, fallback to git commit hash
 version 'git rev-parse --abbrev-ref HEAD'.execute().getText().trim()
 if (version == 'HEAD') {
     version 'git rev-parse --short HEAD'.execute().getText().trim()
 }
 
-// Make sure we compile in UTF-8 mode
 compileJava.options.encoding = 'UTF-8'
 
 tasks.withType(JavaCompile).configureEach {
@@ -40,6 +38,12 @@ jar {
     from {
         configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
     }
+    
+    exclude 'META-INF/MANIFEST.MF'
+    exclude 'META-INF/*.SF'
+    exclude 'META-INF/*.DSA'
+    exclude 'META-INF/*.RSA'
 }
+
 sourceCompatibility = JavaVersion.VERSION_1_8
 targetCompatibility = JavaVersion.VERSION_1_8

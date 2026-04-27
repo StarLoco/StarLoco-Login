@@ -8,6 +8,7 @@ import org.starloco.locos.database.AbstractDAO;
 import org.starloco.locos.database.Result;
 import org.starloco.locos.object.Account;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -113,6 +114,44 @@ public class AccountData extends AbstractDAO<Account> {
         }
     }
 
+    public Account loadByZaapToken(String zaapToken) {
+        Account account = null;
+        Connection connection = null;
+        PreparedStatement statement = null;
+        try {
+            String query = "SELECT * FROM `world_accounts` WHERE zaap_token = ?;";
+            connection = getConnection();
+            statement = connection.prepareStatement(query);
+            statement.setString(1, zaapToken);
+            ResultSet resultSet = statement.executeQuery();
+            account = loadFromResultSet(resultSet);
+            if (account != null) {
+                logger.debug("Account with zaap token successfully loaded");
+            } else {
+                logger.debug("Account with zaap token not found");
+            }
+        } catch (Exception e) {
+            logger.error("Can't load account with zaap token", e);
+        } finally {
+            close(statement);
+            close(connection);
+        }
+        return account;
+    }
+
+    public boolean consumeZaapToken(int guid) {
+        try {
+            String query = "UPDATE `world_accounts` SET zaap_token = NULL WHERE guid = ?;";
+            PreparedStatement statement = getPreparedStatement(query);
+            statement.setInt(1, guid);
+            execute(statement);
+            return true;
+        } catch (Exception e) {
+            logger.error("SQL ERROR consuming zaapToken", e);
+        }
+        return false;
+    }
+
     public boolean isBanned(String ip) {
         boolean banned = false;
         try {
@@ -133,7 +172,7 @@ public class AccountData extends AbstractDAO<Account> {
     Account loadFromResultSet(ResultSet resultSet)
             throws SQLException {
         if (resultSet.next())
-            return new Account(resultSet.getInt("guid"), resultSet.getString("account").toLowerCase(), resultSet.getString("pass"), resultSet.getString("pseudo"), resultSet.getString("question"), resultSet.getByte("logged"), resultSet.getLong("subscribe"), resultSet.getByte("banned"), resultSet.getLong("bannedTime"));
+            return new Account(resultSet.getInt("guid"), resultSet.getString("account").toLowerCase(), resultSet.getString("pass"), resultSet.getString("pseudo"), resultSet.getString("question"), resultSet.getByte("logged"), resultSet.getLong("subscribe"), resultSet.getByte("banned"), resultSet.getLong("bannedTime"), resultSet.getString("zaap_token"));
         return null;
     }
 }

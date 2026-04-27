@@ -24,6 +24,7 @@ public class Config {
     public static String exchangeIp, version;
     public static int loginPort, exchangePort;
     public static String exchangeKey;
+    public static boolean zaapEnabled;
 
     public static void verify(String name) {
         if(new File(name).exists()) load(name);
@@ -66,6 +67,7 @@ public class Config {
             Config.databaseUser = properties.getProperty(Params.LOGIN_DB_USER.toString()); i++;
             Config.databasePass = properties.getProperty(Params.LOGIN_DB_PASS.toString()); i++;
             Config.databaseName = properties.getProperty(Params.LOGIN_DB_NAME.toString()); i++;
+            Config.zaapEnabled = Boolean.parseBoolean(properties.getProperty(Params.ZAAP_ENABLED.toString())); i++;
         } catch(Exception e) {
             Console.instance.write(" > Config : not found or invalid parameters! (line " + i + ")");
             verify(name);
@@ -116,7 +118,10 @@ public class Config {
             .append(Params.LOGIN_DB_PORT).append(" 3306\n")
             .append(Params.LOGIN_DB_USER).append(" root\n")
             .append(Params.LOGIN_DB_PASS).append(" \n")
-            .append(Params.LOGIN_DB_NAME).append(" starloco_login\n");
+            .append(Params.LOGIN_DB_NAME).append(" starloco_login\n")
+            .append("\n")
+            .append("# Zaap authentication\n")
+            .append(Params.ZAAP_ENABLED).append(" false\n");
         
         try {
             config.write(sb.toString());
@@ -154,7 +159,8 @@ public class Config {
         LOGIN_DB_PORT("database.login.port"),
         LOGIN_DB_USER("database.login.user"),
         LOGIN_DB_PASS("database.login.pass"),
-        LOGIN_DB_NAME("database.login.name");
+        LOGIN_DB_NAME("database.login.name"),
+        ZAAP_ENABLED("system.server.zaap.enabled");
 
         private final String params;
 
